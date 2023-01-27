@@ -30,7 +30,7 @@ class DoctorController extends Controller
         ]);
 
         try {
-            DB::transaction(function () {
+            DB::transaction(function () use ($validated) {
                 // Create user account
                 $user = User::create([
                     'user_id' => $this->generateID('USR', 'users', 'user_id'),
@@ -40,7 +40,7 @@ class DoctorController extends Controller
                 ]);
     
                 // Record doctor information
-                $doctor = Doctor::create([
+                Doctor::create([
                     'user_id' => $user->user_id,
                     'doctor_fname' => $validated['first_name'],
                     'doctor_middle' => $validated['middle_name'],

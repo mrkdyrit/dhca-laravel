@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap')
+
+$dhca-green: #76D966
+$dhca-green-hover: #72C065
+$dhca-red: #F55B77
+
+
+*
+    margin: 0
+    padding: 0
+    font-family: 'Poppins', sans-serif
+
+html, body
+    background-color: #EFEFEF
+    height: 100%
+    width: 100%
+
+    #app
+        height: 100%
+        width: 100%
+
+// Bootstrap Overrides
+.input-group
+    .input-group-text
+        background-color: $dhca-green
+        color: white
+        border-color: $dhca-green
+        border-radius: 8px
+
+.form-control
+    border-color: $dhca-green
+    border-radius: 8px
+    background-color: #F4F5FA
+    outline: none
+
+.form-control:focus
+    box-shadow: 0px 0px 5px $dhca-green
+    border-color: $dhca-green
+
+.btn
+    border-radius: 3px
+    border-color: $dhca-green
+
+.btn.btn-primary
+    background-color: $dhca-green
+
+.btn.btn-primary:hover
+    background-color: $dhca-green-hover
+    border-color: $dhca-green-hover
+
+.toast.success
+    border-color: $dhca-green
+
+    .toast-header
+        background-color: $dhca-green
+        color: white
+
+.toast.failed
+    border-color: $dhca-red
+
+    .toast-header
+        background-color: $dhca-red
+        color: white    
+
+
+.dhca-container
+    background-color: #FFFFFF
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25)
+    border-radius: 3px
+    padding: 5px
+    padding-left: 25px
+    padding-right: 25px
+
+.dhca-title-box
+    width: 100%
+    border-bottom: 3px solid $dhca-green

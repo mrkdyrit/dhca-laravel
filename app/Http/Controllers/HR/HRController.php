@@ -5,6 +5,7 @@ namespace App\Http\Controllers\HR;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GenerateID;
 use App\Models\HR;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,19 +16,19 @@ class HRController extends Controller
     use GenerateID;
 
     public function store(Request $request) {
-        $validated = $request->validate([
-            'username' => 'required|string|unique:' . User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'first_name' => 'required|string',
-            'middle_name' => 'required|string',
-            'last_name' => 'required|string',
-            'contact_number' => 'required|integer',
-            'email' => 'required|email',
-            'id_number' => 'required|integer'
-        ]);
-
         try {
-            DB::transaction(function () {
+            $validated = $request->validate([
+                'username' => 'required|string|unique:' . User::class,
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'first_name' => 'required|string',
+                'middle_name' => 'required|string',
+                'last_name' => 'required|string',
+                'contact_number' => 'required|integer',
+                'email' => 'required|email',
+                'id_number' => 'required|integer'
+            ]);
+
+            DB::transaction(function () use ($validated) {
                 // Create user account
                 $user = User::create([
                     'user_id' => $this->generateID('USR', 'users', 'user_id'),
@@ -37,7 +38,7 @@ class HRController extends Controller
                 ]);
 
                 // Record HR Information
-                $hr = HR::create([
+               HR::create([
                     'user_id' => $user->user_id,
                     'doctor_fname' => $validated['first_name'],
                     'doctor_middle' => $validated['middle_name'],

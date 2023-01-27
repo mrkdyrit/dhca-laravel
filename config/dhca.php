@@ -29,7 +29,10 @@ return [
             ],
             'medical_records' => [
                 'store' => 'Successfully create a medical record for patient.'
-            ]
+            ],
+            'schedule' => [
+                'store' => 'Added an appointment to your schedule.',
+            ],
         ],
         'failed' => [
             'doctors' => [
@@ -43,7 +46,10 @@ return [
             ],
             'medical_records' => [
                 'store' => 'Failed to create a medical record for patient.'
-            ]
+            ],
+            'schedule' => [
+                'store' => 'Cannot add appointment to your schedule.',
+            ],
         ]
     ]
 ];
