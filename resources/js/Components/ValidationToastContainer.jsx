@@ -24,7 +24,7 @@ export default function ValidationToastContainer() {
     // Watch for any flash message thrown from the backend
     useEffect(() => {
         // Show error toast
-        toast(flash['message'], {
+        toast.success(flash['message'], {
             toastId: 'flash'
         })      
     }, [flash])
@@ -40,6 +40,6 @@ export default function ValidationToastContainer() {
             pauseOnFocusLoss
             draggable={false}
             pauseOnHover
-            theme="light"/>
+            theme="colored"/>
     )
 }

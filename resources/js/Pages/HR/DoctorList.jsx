@@ -1,18 +1,24 @@
 import { Head } from "@inertiajs/react";
 import React from "react";
+import PageTitle from "../../Components/PageTitle";
+import TableSort from "../../Components/TableSort";
 import HRLayout from "../../Layouts/HRLayout";
 
-export default function DoctorList(props) {
+export default function DoctorList() {
     return (
         <>
             <Head title="Doctor List" />
-            <HRLayout
-                appName={props.appName}
-                auth={props.auth}
-                errors={props.errors}
-                flash={props.flash}
-                user_type={props.user_type}>
-                
+            <HRLayout>
+                <PageTitle
+                    items={[
+                        {
+                            title: "Doctors List",
+                            url: route("hr.doctors.list"),
+                        }
+                    ]}/>
+                <div className="dhca-container">
+                    <TableSort />
+                </div>
             </HRLayout>
         </>
     )

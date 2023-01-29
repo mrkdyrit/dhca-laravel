@@ -1,9 +1,12 @@
+import { usePage } from "@inertiajs/react"
 import React from "react"
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import ValidationToastContainer from "../Components/ValidationToastContainer"
 
-const HRLayout = ({auth, appName, user_type,children}) => {
-    
+const HRLayout = ({children}) => {
+    const { auth } = usePage().props
+    const { appName } = usePage().props
+    const { user_type } = usePage().props
 
     return (
         <>
@@ -17,7 +20,7 @@ const HRLayout = ({auth, appName, user_type,children}) => {
                             {
                                 auth.user.user_type == user_type.hr_head && (
                                     <NavDropdown title="Register" className="mx-5">
-                                        <NavDropdown.Item href="" className="text-center">HR</NavDropdown.Item>
+                                        <NavDropdown.Item href={route('hr.hr.add')} className="text-center">HR</NavDropdown.Item>
                                         <NavDropdown.Divider className="mx-3" />
                                         <NavDropdown.Item href={route('hr.doctors.add')} className="text-center">Doctor</NavDropdown.Item>
                                     </NavDropdown>

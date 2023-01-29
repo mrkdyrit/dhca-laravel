@@ -45,7 +45,7 @@ class DoctorController extends Controller
                     'doctor_fname' => $validated['first_name'],
                     'doctor_middle' => $validated['middle_name'],
                     'doctor_lname' => $validated['last_name'],
-                    'contact_name' => $validated['contact_number'],
+                    'contact_number' => $validated['contact_number'],
                     'email' => $validated['email'],
                     'medical_field' => $validated['medical_field'],
                     'id_number' => $validated['id_number'],
@@ -54,7 +54,7 @@ class DoctorController extends Controller
             
             return back()->with([
                 'message' => config('dhca.messages.success.doctors.store')
-            ]);
+            ], 200);
         } catch (Exception $e) {
             return back()->withErrors([
                 'message' => config('dhca.messages.failed.doctors.store')

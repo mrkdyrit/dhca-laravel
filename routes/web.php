@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\HandleRedirects;
 use App\Http\Controllers\Doctors\DoctorController;
+use App\Http\Controllers\HR\HRController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,8 +39,13 @@ Route::group(['prefix' => 'hr', 'middleware' => ['auth', 'hr']], function () {
 
     Route::group(['prefix' => 'registration'], function () {
         Route::group(['prefix' => 'doctors'], function () {
-            Route::inertia('/', 'HR/Registration/Doctors')->name('hr.doctors.add');
+            Route::inertia('/', 'HR/Registration/AddDoctors')->name('hr.doctors.add');
             Route::post('/', [DoctorController::class, 'store'])->name('hr.doctors.store');
+        });
+
+        Route::group(['prefix' => 'hr'], function () {
+            Route::inertia('/', 'HR/Registration/AddHR')->name('hr.hr.add');
+            Route::post('/', [HRController::class, 'store'])->name('hr.hr.store');
         });
     });
 });

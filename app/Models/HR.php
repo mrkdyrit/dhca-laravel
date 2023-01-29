@@ -13,9 +13,9 @@ class HR extends Model
 
     protected $fillable = [
         'user_id',
-        'doctor_fname',
-        'doctor_middle',
-        'doctor_lname',
+        'hr_fname',
+        'hr_middle',
+        'hr_lname',
         'contact_number',
         'email',
         'id_number',

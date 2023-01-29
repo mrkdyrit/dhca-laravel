@@ -16,18 +16,18 @@ class HRController extends Controller
     use GenerateID;
 
     public function store(Request $request) {
-        try {
-            $validated = $request->validate([
-                'username' => 'required|string|unique:' . User::class,
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'first_name' => 'required|string',
-                'middle_name' => 'required|string',
-                'last_name' => 'required|string',
-                'contact_number' => 'required|integer',
-                'email' => 'required|email',
-                'id_number' => 'required|integer'
-            ]);
+        $validated = $request->validate([
+            'username' => 'required|string|unique:' . User::class,
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'first_name' => 'required|string',
+            'middle_name' => 'required|string',
+            'last_name' => 'required|string',
+            'contact_number' => 'required|integer',
+            'email' => 'required|email',
+            'id_number' => 'required|integer'
+        ]);
 
+        try {
             DB::transaction(function () use ($validated) {
                 // Create user account
                 $user = User::create([
@@ -38,25 +38,23 @@ class HRController extends Controller
                 ]);
 
                 // Record HR Information
-               HR::create([
+                HR::create([
                     'user_id' => $user->user_id,
-                    'doctor_fname' => $validated['first_name'],
-                    'doctor_middle' => $validated['middle_name'],
-                    'doctor_lname' => $validated['last_name'],
-                    'contact_name' => $validated['contact_number'],
+                    'hr_fname' => $validated['first_name'],
+                    'hr_middle' => $validated['middle_name'],
+                    'hr_lname' => $validated['last_name'],
+                    'contact_number' => $validated['contact_number'],
                     'email' => $validated['email'],
                     'id_number' => $validated['id_number'],
                 ]);
 
                 return back()->with([
-                    'success' => true,
                     'message' => config('dhca.messages.success.hr.store')
                 ]);
             });
         } catch(Exception $e) {
-            return back()->with([
-                'success' => false,
-                'message' => config('dhca.messages.failed.hr.store')
+            return back()->withErrors([
+                'message' => config('dhca.messages.failed.hr.store') . $e
             ]);
         }
     }
