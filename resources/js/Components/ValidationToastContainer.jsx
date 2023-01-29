@@ -1,24 +1,36 @@
-import { usePage } from "@inertiajs/inertia-react";
-import React from "react";
-import { Toast, ToastContainer } from "react-bootstrap";
-import ValidationErrorToast from "./ValidationErrorToast";
-import FlashToast from "./FlashToast";
+import { usePage } from "@inertiajs/react";
+import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
-export default function ValidationToastContainer({errors, flash}) {
+import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from "react-bootstrap";
+// import ValidationErrorToast from "./ValidationErrorToast";
+// import FlashToast from "./FlashToast";
 
+export default function ValidationToastContainer() {
+    const { errors } = usePage().props
+
+    // Watch for any errors thrown from the backend
+    useEffect(() => {
+        // Show error toast
+        Object.keys(errors).length != 0 && Object.keys(errors).map((key) => (
+            toast.error(errors[key], {
+                toastId: key
+            })
+        ))        
+    }, [errors])
+    
     return  (
         <ToastContainer
-            className="p-3"
-            position="top-end">
-                {
-                    Object.keys(errors).length != 0 && Object.entries(errors).map(([key, value]) => (
-                        <ValidationErrorToast title={key} message={value} />
-                    ))
-                }
-
-                { flash.success &&
-                    <FlashToast success={flash.success} message={flash.message} />
-                }
-        </ToastContainer>
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable={false}
+            pauseOnHover
+            theme="light"/>
     )
 }

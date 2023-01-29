@@ -8,7 +8,7 @@ export default function FlashToast({success, title, message}) {
     const toggle = () => setShow(!show)
 
     return (
-        <Toast className={isSuccess} show={show} onClose={toggle} delay={3000} autohide>
+        <Toast className={isSuccess} show={show} onClose={toggle} delay={5000} autohide>
             <Toast.Header>
                 <strong className="me-auto text-capitalize"><i class="bi bi-info-circle"></i> {isSuccess}</strong>
             </Toast.Header>

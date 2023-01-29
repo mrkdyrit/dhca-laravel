@@ -4,7 +4,8 @@ import ValidationToastContainer from "../Components/ValidationToastContainer";
 const CenteredLayout = ({children}) => {
 
     return (
-        <>
+        <>  
+            <ValidationToastContainer />
             <div className="d-flex w-100 h-100">
                 <div className="mx-auto my-auto">
                     {children}

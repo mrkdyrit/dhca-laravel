@@ -8,9 +8,9 @@ export default function ValidationErrorToast({success, title, message}) {
     const toggle = () => setShow(!show)
 
     return (
-        <Toast className={isSuccess} show={show} onClose={toggle} delay={3000} autohide>
+        <Toast className={isSuccess} show={show} onClose={toggle} delay={8000} autohide>
             <Toast.Header>
-                <strong className="me-auto text-capitalize"><i class="bi bi-info-circle"></i> {title}</strong>
+                <strong className="me-auto text-capitalize"><i className="bi bi-info-circle"></i> {title}</strong>
             </Toast.Header>
             <Toast.Body>
                 {message}

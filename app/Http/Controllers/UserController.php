@@ -20,11 +20,11 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            return 'logged in';
+            return redirect()->intended('/auth/redirect');
         }
 
         return Redirect::route('login')->withErrors([
             'Message' => 'The provided credentials do not match our records.',
-        ]);
+        ])->onlyInput('username');
     }
 }

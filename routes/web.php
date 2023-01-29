@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\HandleRedirects;
+use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,12 +17,29 @@ use Inertia\Inertia;
 |
 */
 
-
 // Redirect homepage to dashboard
 Route::redirect('/', 'auth/redirect');
 
-Route::get('/login', function () {
-    return Inertia::render('Auth/Login');
-})->name('login');
+Route::get('/auth/redirect', [HandleRedirects::class, 'handle'])->middleware('auth');
 
-Route::post('/login', [UserController::class, 'authenticate'])->name('auth-login');
+// Login Page
+Route::group(['prefix' => 'login', 'middleware' => 'guest'], function () {
+    Route::inertia('/', 'Auth/Login')->name('login');
+    Route::post('/', [UserController::class, 'authenticate'])->name('auth-login');
+});
+
+// HR Dashaboard
+Route::group(['prefix' => 'hr', 'middleware' => ['auth', 'hr']], function () {
+    Route::redirect('/', 'doctors');
+
+    Route::get('doctors', function () {
+        return Inertia::render('HR/DoctorList');
+    })->name('hr.doctors.list');
+
+    Route::group(['prefix' => 'registration'], function () {
+        Route::group(['prefix' => 'doctors'], function () {
+            Route::inertia('/', 'HR/Registration/Doctors')->name('hr.doctors.add');
+            Route::post('/', [DoctorController::class, 'store'])->name('hr.doctors.store');
+        });
+    });
+});

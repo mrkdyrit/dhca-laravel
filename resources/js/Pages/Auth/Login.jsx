@@ -6,23 +6,24 @@ import { useForm } from "@inertiajs/inertia-react";
 import ValidationToastContainer from "../../Components/ValidationToastContainer";
 
 export default function Login() {
-    const {data, setData, post}  = useForm({
-
-    })
-  
+    const {data, setData, post}  = useForm({})
+    
+    // Login Form Submit
     function loginForm(e) {
         e.preventDefault()
         post(route('auth-login'), data)
     }
 
+    // Retrieve any errors and flash messages
     const { errors } = usePage().props
     const { flash } = usePage().props
 
     return (
         <>
-            <ValidationToastContainer errors={errors} flash={flash}/>
             <Head title="Login"/>
-            <CenteredLayout>
+            <CenteredLayout
+                errors={errors}
+                flash={flash}>
                 <div className="dhca-container py-3">
                     <div className="dhca-title-box fs-2 fw-bold text-uppercase">
                         <span>Login</span>
@@ -47,6 +48,7 @@ export default function Login() {
                                     <i className="bi bi-lock-fill"></i>
                                 </InputGroup.Text>
                                 <Form.Control
+                                    type="password"
                                     id="password"
                                     placeholder="Password"
                                     aria-label="Password"
