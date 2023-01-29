@@ -41,7 +41,7 @@ const HRLayout = ({auth, appName, user_type,children}) => {
             </Navbar>
             <ValidationToastContainer />
 
-            <Container className="mt-5">
+            <Container className="my-5">
                 {children}
             </Container>
         </>

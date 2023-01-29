@@ -40,7 +40,6 @@ export default function Login() {
                                     aria-label="Username"
                                     aria-describedby="username-icon"
                                     onChange={e => setData('username', e.target.value)}
-                                    required
                                 />
                             </InputGroup>
                             <InputGroup className="mb-5">
@@ -54,7 +53,6 @@ export default function Login() {
                                     aria-label="Password"
                                     aria-describedby="password-icon"
                                     onChange={e => setData('password', e.target.value)}
-                                    required
                                 />
                             </InputGroup>
                             <div className="text-end">

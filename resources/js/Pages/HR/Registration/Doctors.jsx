@@ -13,7 +13,11 @@ export default function AddDoctors(props) {
 
     function onSubmit(e) {
         e.preventDefault()
-        post(route('hr.doctors.store'), data)
+        post(route('hr.doctors.store'), data, {
+            // Only clear inputs when the form successes
+            onSuccess: () => e.target.reset()
+        })
+
     }
 
     return (
@@ -84,6 +88,22 @@ export default function AddDoctors(props) {
                                 </Col>
                                 <Col>
                                     
+                                </Col>
+                            </Row>
+
+                            <SectionTitle title="Account Information" />
+                            <Row className="row-cols-1 row-cols-md-3 mb-5">
+                                <Col>
+                                    <Form.Control onChange={e => setData('username', e.target.value)} />
+                                    <Form.Label className="text-muted ps-2 pt-1 fw-light">Username</Form.Label>
+                                </Col>
+                                <Col>
+                                    <Form.Control type="password" onChange={e => setData('password', e.target.value)} />
+                                    <Form.Label className="text-muted ps-2 pt-1 fw-light">Password</Form.Label>
+                                </Col>
+                                <Col>
+                                <Form.Control type="password" onChange={e => setData('password_confirmation', e.target.value)} />
+                                    <Form.Label className="text-muted ps-2 pt-1 fw-light">Confirm Password</Form.Label>
                                 </Col>
                             </Row>
 

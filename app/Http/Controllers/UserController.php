@@ -24,7 +24,7 @@ class UserController extends Controller
         }
 
         return Redirect::route('login')->withErrors([
-            'Message' => 'The provided credentials do not match our records.',
-        ])->onlyInput('username');
+            'message' => 'Invalid Credentials',
+        ]);
     }
 }

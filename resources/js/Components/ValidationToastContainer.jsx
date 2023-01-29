@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function ValidationToastContainer() {
     const { errors } = usePage().props
+    const { flash } = usePage().props
 
     // Watch for any errors thrown from the backend
     useEffect(() => {
@@ -19,6 +20,14 @@ export default function ValidationToastContainer() {
             })
         ))        
     }, [errors])
+
+    // Watch for any flash message thrown from the backend
+    useEffect(() => {
+        // Show error toast
+        toast(flash['message'], {
+            toastId: 'flash'
+        })      
+    }, [flash])
     
     return  (
         <ToastContainer

@@ -53,12 +53,10 @@ class DoctorController extends Controller
             });
             
             return back()->with([
-                'success' => true,
                 'message' => config('dhca.messages.success.doctors.store')
             ]);
         } catch (Exception $e) {
-            return back()->with([
-                'success' => false,
+            return back()->withErrors([
                 'message' => config('dhca.messages.failed.doctors.store')
             ]);
         }

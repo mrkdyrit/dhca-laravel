@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Traits;
 
+use Illuminate\Support\Facades\DB;
+
 trait GenerateID {
     public function generateID($prefix, $table, $column) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -16,7 +18,7 @@ trait GenerateID {
             return $genID;
         } else {
             // Generete user id again
-            $this->generateID();
+            $this->generateID($prefix, $table, $column);
         }
     }
 }
