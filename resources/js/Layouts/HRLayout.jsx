@@ -19,6 +19,11 @@ const HRLayout = ({children}) => {
                             <Nav.Link href={route('hr.doctors.list')} className="mx-5">Doctors</Nav.Link>
                             {
                                 auth.user.user_type == user_type.hr_head && (
+                                    <Nav.Link href={route('hr.hr.list')} className="mx-5">HR</Nav.Link>
+                                )
+                            }
+                            {       
+                                auth.user.user_type == user_type.hr_head && (
                                     <NavDropdown title="Register" className="mx-5">
                                         <NavDropdown.Item href={route('hr.hr.add')} className="text-center">HR</NavDropdown.Item>
                                         <NavDropdown.Divider className="mx-3" />

@@ -34,12 +34,22 @@ Route::group(['prefix' => 'hr', 'middleware' => ['auth', 'hr']], function () {
     Route::redirect('/', 'doctors');
 
     Route::get('doctors', function () {
-        return Inertia::render('HR/DoctorList');
+        return Inertia::render('HR/DoctorList', [
+            'doctors' => DoctorController::index()
+        ]);
     })->name('hr.doctors.list');
+
+    Route::get('hr', function () {
+        return Inertia::render('HR/HRList', [
+            'hr' => HRController::index()
+        ]);
+    })->name('hr.hr.list');
 
     Route::group(['prefix' => 'registration'], function () {
         Route::group(['prefix' => 'doctors'], function () {
             Route::inertia('/', 'HR/Registration/AddDoctors')->name('hr.doctors.add');
+            
+            Route::post('/validate', [DoctorController::class, 'validateStoreInput'])->name('hr.doctors.validate');
             Route::post('/', [DoctorController::class, 'store'])->name('hr.doctors.store');
         });
 

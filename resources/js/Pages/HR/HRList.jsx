@@ -5,24 +5,24 @@ import PageTitle from "../../Components/PageTitle";
 import TableSort from "../../Components/TableSort";
 import HRLayout from "../../Layouts/HRLayout";
 
-export default function DoctorList(props) {
+export default function HRList(props) {
     return (
         <>
-            <Head title="Doctor List" />
+            <Head title="HR List" />
             <HRLayout>
                 <PageTitle
                     items={[
                         {
-                            title: "Doctors List",
-                            url: route("hr.doctors.list"),
+                            title: "HR List",
+                            url: route("hr.hr.list"),
                         }
                     ]}/>
                 <div className="dhca-container">
                     <TableSort 
-                        button={<a href={route('hr.doctors.add')}><Button variant="primary">Add Doctor</Button></a>}
-                        DataSource={props.doctors}
+                        button={<Button variant="primary">Add HR</Button>}
+                        DataSource={props.hr}
                         Columns={['First Name', 'Middle Name', 'Last Name']}
-                        Values={['doctor_fname', 'doctor_middle', 'doctor_lname']}
+                        Values={['hr_fname', 'hr_middle', 'hr_lname']}
                     /> 
                 </div>
             </HRLayout>

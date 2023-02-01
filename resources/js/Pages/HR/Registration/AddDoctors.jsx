@@ -1,23 +1,60 @@
-import { Head, useForm, usePage } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import Swal from "sweetalert2";
 import PageTitle from "../../../Components/PageTitle";
 import SectionTitle from "../../../Components/SectionTitle";
 import HRLayout from "../../../Layouts/HRLayout";
 
 export default function AddDoctors() {
-    const { data, setData, post } = useForm({});
+    // Form inputs
+    const { data, setData, post, reset } = useForm({});
+
 
     function onSubmit(e) {
         e.preventDefault();
-        post(route("hr.doctors.store"), {
+        
+        //Validate input
+        post(route("hr.doctors.validate"), {
             data: data,
-            // Only clear inputs when the form successes
-            onSuccess: () => e.target.reset(),
+            // Only submit form when no errors are found
+            onSuccess: () => {
+                // Show Confirm dialog
+                Swal.fire({
+                    title: 'CONFIRMATION',
+                    html: 'Add <b>' + data.first_name + ' ' + data.last_name +'</b>?',
+                    customClass: {
+                        popup: 'rounded-0',
+                        title: 'text-start fw-bold fs-2 mx-4 px-0',
+                        confirmButton: 'btn btn-primary ms-3',
+                        cancelButton: 'btn btn-outline-primary',
+                        focusConfirm: false,
+                        htmlContainer: 'fs-5 my-5 py-5',
+                        actions: 'mt-0 pe-4'
+                    },
+                    reverseButtons: true,
+                    buttonsStyling: false,
+                    confirmButtonText: 'Add',
+                    showCancelButton: true,
+                    width: 600,
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        // Submit form only if user confirms
+                        post(route("hr.doctors.store"), {
+                            data: data,
+                
+                            // Clear inputs on successful submits also clears data
+                            onSuccess: () => {e.target.reset(), reset()}
+                        })
+                    } else {
+                        e.preventDefault
+                    }
+                })
+            }
         });
     }
 
-    return (
+    return (    
         <>
             <Head title="Add Doctors" />
             <HRLayout>
@@ -31,12 +68,12 @@ export default function AddDoctors() {
                             title: "Add Doctors",
                             url: route("hr.doctors.add"),
                         },
-                    ]}
-                />
+                    ]}/>
 
                 <div className="dhca-container">
                     <div className="px-lg-5 mx-lg-5 py-3">
                         <form onSubmit={onSubmit}>
+
                             <SectionTitle title="Doctor's Name" />
                             <Row className="row-cols-1 row-cols-md-3 mb-5">
                                 <Col>
@@ -94,7 +131,7 @@ export default function AddDoctors() {
                                 </Col>
                                 <Col>
                                     <Form.Control
-                                        type="email"
+                                        type="text"
                                         onChange={(e) =>
                                             setData("email", e.target.value)
                                         }

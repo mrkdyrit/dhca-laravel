@@ -1,6 +1,7 @@
 import '../css/bootstrap/bootstrap.min.css';
 import '../css/bootstrap-icons-1.10.3/bootstrap-icons.css'
 import '../css/dhca-base.sass'
+import 'sweetalert2/src/sweetalert2.scss'
 
 import React from 'react';
 import { createInertiaApp } from '@inertiajs/react'

@@ -44,9 +44,13 @@ html, body
 .btn.btn-primary
     background-color: $dhca-green
 
-.btn.btn-primary:hover
+.btn.btn-outline-primary
+    color: $dhca-green
+
+.btn.btn-primary:hover, .btn.btn-outline-primary:hover
     background-color: $dhca-green-hover
-    border-color: $dhca-green-hover
+    border-color: $dhca-green-hover 
+    color: white
 
 .toast.success
     border-color: $dhca-green
@@ -75,14 +79,63 @@ html, body
     .breadcrumb-item + .breadcrumb-item::before
         color: black
 
+.table 
+    border-collapse: separate
+    border-spacing: 0
+    text-align: center
+
+    thead tr td
+        height: 50px
+        line-height: 50px
+        background-color: $dhca-green
+        color: white
+
+    thead tr:first-child td:first-child
+        border-top-left-radius: 8px
+        border-bottom-left-radius: 8px
+
+    thead tr:last-child td:last-child
+        border-top-right-radius: 8px
+        border-bottom-right-radius: 8px
+
+    tbody tr
+        border-color: $dhca-green
+        height: 40px
+        line-height: 40px
+
+.modal-header
+    border-color: $dhca-green
+    border-width: 3px
+
+.modal-footer
+    border-top: none
+
+
+.swal2-title
+    color: black !important
+    border-bottom: 3px solid $dhca-green
+
+// .swal2-styled
+//     padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x) !important
+
+// .swal2-confirm
+//     border: var(--bs-btn-border-width) solid $dhca-green !important
+// .swal2-cancel
+//     background: unset !important
+//     border: var(--bs-btn-border-width) solid $dhca-green !important
+
+.swal2-html-container
+    color: black !important
+
+.swal2-actions
+    width: 100% !important
+    justify-content: end !important
 
 .dhca-container
     background-color: #FFFFFF
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25)
     border-radius: 3px
-    padding: 5px
-    padding-left: 25px
-    padding-right: 25px
+    padding: 25px
 
 .dhca-title-box
     width: 100%

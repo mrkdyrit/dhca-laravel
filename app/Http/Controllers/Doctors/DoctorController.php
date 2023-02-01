@@ -15,9 +15,13 @@ class DoctorController extends Controller
 {
     use GenerateID;
 
-    public function store(Request $request) {
-        // Validate each input before processing the request
-        $validated = $request->validate([
+    public static function index() {
+        return Doctor::all(['user_id', 'doctor_fname', 'doctor_middle', 'doctor_lname',]);
+    }
+
+    private function validation(Request $request) {
+        // Check for validation errors
+        return $request->validate([
             'username' => 'required|string|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'first_name' => 'required|string',
@@ -28,6 +32,17 @@ class DoctorController extends Controller
             'id_number' => 'required|integer',
             'medical_field' => 'required|string'
         ]);
+    }
+
+    public function validateStoreInput(Request $request) {
+        $this->validation($request);
+
+        return back();
+    }
+    
+    public function store(Request $request) {
+        // Validate each input before processing the request, just to double check
+        $validated =  $this->validation($request);
 
         try {
             DB::transaction(function () use ($validated) {

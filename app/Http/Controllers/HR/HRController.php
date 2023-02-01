@@ -15,6 +15,10 @@ class HRController extends Controller
 {
     use GenerateID;
 
+    public static function index() {
+        return HR::all(['hr_fname', 'hr_middle', 'hr_lname',]);
+    }
+
     public function store(Request $request) {
         $validated = $request->validate([
             'username' => 'required|string|unique:' . User::class,
