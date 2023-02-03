@@ -47,6 +47,7 @@ export default function AddDoctors() {
                             onSuccess: () => {e.target.reset(), reset()}
                         })
                     } else {
+                        // Cancel submission
                         e.preventDefault
                     }
                 })

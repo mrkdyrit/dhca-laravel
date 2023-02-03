@@ -1,32 +1,70 @@
 import React, { useEffect, useState } from "react";
-import { Col, Form, InputGroup, Row, Table } from "react-bootstrap";
+import { Button, Col, Form, InputGroup, Row, Table } from "react-bootstrap";
 
-export default function TableSort({button, DataSource, Columns, Values, showAction = false}) {
+export default function TableSort({button, DataSource, Columns, Values, showAction = false, Actions}) {
 
     const [dataSet, setDataSet] = useState(DataSource)
     
     const [TableRows, setTableRows] = useState()
 
     useEffect(() => {
-        setTableRows(
-            dataSet.map((data, index) => {
-                return (
-                    <tr key={index + 1}>
-                        <td>{index + 1}</td>
-                        {
-                            Values.map((key, i) => {
-                                return (
-                                    <td key={i + 1}>{data[key]}</td>
-                                );
-                            })
-                        }
-                        {showAction && (
-                            <td>-</td>
-                        )}
-                    </tr>
-                )
-            })
-        );
+        // Checks if data set has contents
+        if(dataSet.length != 0) {
+            setTableRows(
+                dataSet.map((data, index) => {
+                    return (
+                        <tr key={index + 1}>
+                            <td>{index + 1}</td>
+                            {
+                                Values.map((key, i) => {
+                                    return (
+                                        <td key={i + 1}>{data[key]}</td>
+                                    );
+                                })
+                            }
+                            {showAction && (
+                                <td>
+                                    {   
+                                        // View Button
+                                        Actions.includes('view') && (
+                                            <Button variant="outline-primary" className="action-btn mx-1">
+                                                <i className="bi bi-eye"></i>
+                                            </Button>
+                                        )
+                                    }
+
+                                    {
+                                        // Edit Button
+                                        Actions.includes('edit') && (
+                                            <Button variant="outline-primary" className="action-btn mx-1">
+                                                <i className="bi bi-pencil"></i>
+                                            </Button>
+                                        )
+                                    }
+
+                                    {
+                                        // Delete Button
+                                        Actions.includes('delete') && (
+                                            <Button variant="outline-primary" className="action-btn mx-1">
+                                                <i className="bi bi-trash3"></i>
+                                            </Button>
+                                        )
+                                    }
+                                </td>
+                            )}
+                        </tr>
+                    )
+                })
+            );
+        } else {
+            setTableRows(
+                <tr>
+                    <td className="text-center" colSpan={100}>
+                        No Data Found
+                    </td>
+                </tr>
+            )
+        }
     }, [dataSet])
 
     function handleSearch(e) {

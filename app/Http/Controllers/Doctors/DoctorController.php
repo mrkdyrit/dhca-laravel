@@ -19,6 +19,7 @@ class DoctorController extends Controller
         return Doctor::all(['user_id', 'doctor_fname', 'doctor_middle', 'doctor_lname',]);
     }
 
+    // Validate input
     private function validation(Request $request) {
         // Check for validation errors
         return $request->validate([
